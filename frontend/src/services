@@ -1,0 +1,61 @@
+// This file contains API helper functions for making requests to the backend, handling authentication, and managing data.
+
+import axios from 'axios';
+
+const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api/';
+
+export const registerUser = async (userData) => {
+    const response = await axios.post(`${API_URL}register/`, userData);
+    return response.data;
+};
+
+export const loginUser = async (credentials) => {
+    const response = await axios.post(`${API_URL}login/`, credentials);
+    return response.data;
+};
+
+export const getUserProfile = async (token) => {
+    const response = await axios.get(`${API_URL}profile/`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};
+
+export const updateUserProfile = async (token, profileData) => {
+    const response = await axios.put(`${API_URL}profile/`, profileData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};
+
+export const fetchProjects = async () => {
+    const response = await axios.get(`${API_URL}projects/`);
+    return response.data;
+};
+
+export const createProject = async (token, projectData) => {
+    const response = await axios.post(`${API_URL}projects/`, projectData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};
+
+export const fetchProducts = async () => {
+    const response = await axios.get(`${API_URL}products/`);
+    return response.data;
+};
+
+export const createOrder = async (token, orderData) => {
+    const response = await axios.post(`${API_URL}orders/`, orderData, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    return response.data;
+};
